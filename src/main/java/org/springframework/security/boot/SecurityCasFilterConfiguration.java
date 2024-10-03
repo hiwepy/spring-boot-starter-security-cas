@@ -1,7 +1,6 @@
 package org.springframework.security.boot;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.jasig.cas.client.authentication.Saml11AuthenticationFilter;
 import org.jasig.cas.client.session.HashMapBackedSessionMappingStorage;
 import org.jasig.cas.client.session.SessionMappingStorage;
 import org.jasig.cas.client.util.AssertionThreadLocalFilter;
@@ -47,6 +46,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
@@ -169,8 +169,7 @@ public class SecurityCasFilterConfiguration {
 	@Configuration
 	@ConditionalOnProperty(prefix = SecurityCasProperties.PREFIX, value = "enabled", havingValue = "true")
 	@EnableConfigurationProperties({ SecurityCasProperties.class, SecurityBizProperties.class })
-	@Order(SecurityProperties.DEFAULT_FILTER_ORDER + 60)
-	static class CasWebSecurityConfigurerAdapter extends WebSecurityBizConfigurerAdapter {
+	static class CasWebSecurityCustomizerAdapter extends WebSecurityCustomizerAdapter {
 
 		private final SecurityCasAuthcProperties authcProperties;
     	private final LocaleContextFilter localeContextFilter;
@@ -187,7 +186,7 @@ public class SecurityCasFilterConfiguration {
 		private final SessionAuthenticationStrategy sessionAuthenticationStrategy;
 		private final TicketValidator ticketValidator;
 
-		public CasWebSecurityConfigurerAdapter(
+		public CasWebSecurityCustomizerAdapter(
 
 				SecurityBizProperties bizProperties,
 				SecurityCasAuthcProperties authcProperties,
@@ -358,8 +357,9 @@ public class SecurityCasFilterConfiguration {
 			return requestContextFilter;
 		}
 
-	    @Override
-		public void configure(HttpSecurity http) throws Exception {
+		@Bean
+		@Order(SecurityProperties.DEFAULT_FILTER_ORDER + 60)
+		public SecurityFilterChain casSecurityFilterChain(HttpSecurity http) throws Exception {
 
 	    	http.antMatcher(authcProperties.getPathPattern())
 				.exceptionHandling()
@@ -401,12 +401,14 @@ public class SecurityCasFilterConfiguration {
    	    	super.configure(http, authcProperties.getCsrf());
    	    	super.configure(http, authcProperties.getHeaders());
 	    	super.configure(http);
+
+			return http.build();
 	    }
 
-	    @Override
-	    public void configure(WebSecurity web) throws Exception {
-	    	super.configure(web);
-	    }
+		@Override
+		public void customize(WebSecurity web) {
+			super.customize(web);
+		}
 
 	}
 
