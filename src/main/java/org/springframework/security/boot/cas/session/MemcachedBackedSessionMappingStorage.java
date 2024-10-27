@@ -20,7 +20,7 @@ import org.jasig.cas.client.session.SessionMappingStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * For Session Storage With Memcached

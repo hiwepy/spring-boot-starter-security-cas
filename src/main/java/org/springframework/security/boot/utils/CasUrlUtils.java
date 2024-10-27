@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jasig.cas.client.util.CommonUtils;
 import org.springframework.security.boot.SecurityCasServerProperties;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;

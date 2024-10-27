@@ -5,9 +5,9 @@ import org.jasig.cas.client.util.AbstractCasFilter;
 import org.springframework.security.boot.SecurityCasAuthcProperties;
 import org.springframework.security.boot.cas.ticket.ProxyGrantingTicketStorageProvider;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Saml11AuthenticationRoutingFilter extends AbstractCasFilter {

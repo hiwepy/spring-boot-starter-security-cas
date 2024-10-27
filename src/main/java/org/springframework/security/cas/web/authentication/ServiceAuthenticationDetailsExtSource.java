@@ -6,7 +6,7 @@ import org.springframework.security.boot.SecurityCasServerProperties;
 import org.springframework.security.boot.utils.StringUtils;
 import org.springframework.security.cas.ServiceProperties;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;

@@ -9,9 +9,9 @@ import org.springframework.security.boot.SecurityCasAuthcProperties;
 import org.springframework.security.boot.SecurityCasServerProperties;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +78,7 @@ public class SingleSignOutRoutingFilter extends AbstractConfigurationFilter {
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         /**
-         * <p>Workaround for now for the fact that Spring Security will fail since it doesn't call {@link #init(javax.servlet.FilterConfig)}.</p>
+         * <p>Workaround for now for the fact that Spring Security will fail since it doesn't call {@link #init(jakarta.servlet.FilterConfig)}.</p>
          * <p>Ultimately we need to allow deployers to actually inject their fully-initialized {@link org.jasig.cas.client.session.SingleSignOutHandler}.</p>
          */
         if (!this.handlerInitialized.getAndSet(true)) {

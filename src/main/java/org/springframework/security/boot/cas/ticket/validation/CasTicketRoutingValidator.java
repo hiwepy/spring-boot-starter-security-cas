@@ -11,7 +11,7 @@ import org.springframework.security.boot.utils.RequestContextHolderUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
